@@ -24,7 +24,26 @@
             </div>
             <h2 class="game--status"></h2>
             <button class="game--restart">Restart Game</button>
+            <button class="game--restart" onclick="sendMessage()">SEND</button>
         </section>
         <script src="script.js"></script>
+        <script>
+            const sendMessage = () =>{
+                socket.send("hello from client ! ");
+                setTimeout(()=>socket.close(1000,"BYE!"), 5000);
+            }
+            const socket = new WebSocket("ws://192.168.142.1:3000/");
+            socket.onopen = function (e){
+                console.log("opninnnnnnnnnnnnnnnnng");
+            }
+            socket.onmessage = function (e){
+                console.log("data",`${e.data}`);
+            }
+            socket.onclose = function (e){
+                if (e.wasClean)
+                console.log("data",`${e.data}`);
+            }
+        </script>
+
     </body>
 </html>
